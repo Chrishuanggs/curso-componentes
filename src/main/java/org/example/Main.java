@@ -1,157 +1,201 @@
 package org.example;
 
-import org.example.models.Clientes;
 import org.example.models.Curso;
 import org.example.models.Grupo;
+import org.example.models.Clientes;
 
+/**
+ * Clase principal del sistema
+ * Versión actual: Prueba de modelos + Arquitectura preparada
+ */
 public class Main {
     public static void main(String[] args) {
         System.out.println("╔═══════════════════════════════════════════════════════╗");
-        System.out.println("║    SISTEMA DE GESTIÓN DE CURSOS Y GRUPOS             ║");
+        System.out.println("║    SISTEMA DE GESTIÓN DE CURSOS - DEMO               ║");
+        System.out.println("╚═══════════════════════════════════════════════════════╝\n");
+
+        // ============================================================
+        // PARTE 1: PRUEBA DE MODELOS (Ya implementados)
+        // ============================================================
+        probarModelos();
+
+        // ============================================================
+        // PARTE 2: ARQUITECTURA EN CAPAS (Preparada para implementar)
+        // ============================================================
+        System.out.println("\n" + "=".repeat(55));
+        System.out.println("ARQUITECTURA EN CAPAS - LISTA PARA IMPLEMENTAR");
+        System.out.println("=".repeat(55));
+        mostrarArquitectura();
+
+        System.out.println("\n╔═══════════════════════════════════════════════════════╗");
+        System.out.println("║              SISTEMA FINALIZADO ✓                     ║");
         System.out.println("╚═══════════════════════════════════════════════════════╝");
-        System.out.println();
+    }
 
-        // ============================================================
+    /**
+     * Prueba las clases de dominio ya implementadas
+     */
+    private static void probarModelos() {
+        System.out.println("━━━ PRUEBA DE MODELOS DEL DOMINIO ━━━\n");
+
         // 1. CREAR CURSO
-        // ============================================================
-        System.out.println("━━━ 1. CREACIÓN DEL CURSO ━━━");
-        Curso curso1 = new Curso(
+        System.out.println("1️⃣  CREANDO CURSO");
+        Curso curso = new Curso(
                 "C001",
-                "Programación Orientada a Objetos en Java",
-                "Curso completo de POO con Java aplicando encapsulamiento, herencia y polimorfismo",
+                "Programación Orientada a Objetos",
+                "Curso completo de POO con Java",
                 "60 horas",
-                "profesor.tech@university.edu"
+                "profesor@university.edu"
         );
-        System.out.println("✓ Curso creado: " + curso1.getNombre());
-        System.out.println("  ID: " + curso1.getId());
-        System.out.println("  Duración: " + curso1.getTiempo());
-        System.out.println();
+        System.out.println("    ✓ " + curso.getNombre());
+        System.out.println("      Duración: " + curso.getTiempo());
 
-        // ============================================================
-        // 2. CREAR GRUPOS Y AGREGARLOS AL CURSO
-        // ============================================================
-        System.out.println("━━━ 2. CREACIÓN DE GRUPOS ━━━");
-        Grupo grupo1 = new Grupo("G001", "Grupo Matutino A", "Activo");
-        Grupo grupo2 = new Grupo("G002", "Grupo Vespertino B", "Activo");
-        Grupo grupo3 = new Grupo("G003", "Grupo Sabatino C", "Inactivo");
+        // 2. CREAR GRUPOS
+        System.out.println("\n2️⃣  CREANDO GRUPOS");
+        Grupo grupo1 = new Grupo("G001", "Grupo Matutino", "Activo");
+        Grupo grupo2 = new Grupo("G002", "Grupo Vespertino", "Activo");
 
-        // Agregar grupos al curso (relación Curso -> Grupo)
-        curso1.agregarGrupo(grupo1);
-        curso1.agregarGrupo(grupo2);
-        curso1.agregarGrupo(grupo3);
+        // Agregar grupos al curso (Relación 1:*)
+        curso.agregarGrupo(grupo1);
+        curso.agregarGrupo(grupo2);
 
-        System.out.println("✓ Grupos agregados al curso:");
-        System.out.println("  - " + grupo1.getNombre() + " (" + grupo1.getEstado() + ")");
-        System.out.println("  - " + grupo2.getNombre() + " (" + grupo2.getEstado() + ")");
-        System.out.println("  - " + grupo3.getNombre() + " (" + grupo3.getEstado() + ")");
-        System.out.println("  Total de grupos: " + curso1.getCantidadGrupos());
-        System.out.println();
+        System.out.println("    ✓ " + grupo1.getNombre() + " (" + grupo1.getEstado() + ")");
+        System.out.println("    ✓ " + grupo2.getNombre() + " (" + grupo2.getEstado() + ")");
+        System.out.println("    → Grupos agregados al curso: " + curso.getCantidadGrupos());
 
-        // ============================================================
-        // 3. CREAR CLIENTES Y MATRICULARLOS EN GRUPOS
-        // ============================================================
-        System.out.println("━━━ 3. MATRICULACIÓN DE CLIENTES ━━━");
+        // 3. CREAR CLIENTES
+        System.out.println("\n3️⃣  MATRICULANDO CLIENTES");
+        Clientes cliente1 = new Clientes(
+                "CL001", "Juan Carlos", "Pérez García", "1", "juan@mail.com"
+        );
+        Clientes cliente2 = new Clientes(
+                "CL002", "María Fernanda", "López Rodríguez", "1", "maria@mail.com"
+        );
+        Clientes cliente3 = new Clientes(
+                "CL003", "Pedro Antonio", "Martínez Silva", "0", "pedro@mail.com"
+        );
+        Clientes cliente4 = new Clientes(
+                "CL004", "Ana Sofía", "González Vargas", "1", "ana@mail.com"
+        );
 
-        // Clientes para Grupo 1
-        Clientes cliente1 = new Clientes("CL001", "Juan Carlos", "Pérez García", "1", "juan.perez@mail.com");
-        Clientes cliente2 = new Clientes("CL002", "María Fernanda", "López Rodríguez", "1", "maria.lopez@mail.com");
-        Clientes cliente3 = new Clientes("CL003", "Pedro Antonio", "Martínez Silva", "1", "pedro.martinez@mail.com");
-
-        // Clientes para Grupo 2
-        Clientes cliente4 = new Clientes("CL004", "Ana Sofía", "González Vargas", "1", "ana.gonzalez@mail.com");
-        Clientes cliente5 = new Clientes("CL005", "Luis Miguel", "Ramírez Torres", "0", "luis.ramirez@mail.com");
-
-        // Clientes para Grupo 3
-        Clientes cliente6 = new Clientes("CL006", "Carmen Elena", "Díaz Morales", "1", "carmen.diaz@mail.com");
-
-        // Matricular clientes en grupos (relación Grupo -> Clientes)
+        // Matricular clientes en grupos (Relación 1:0..*)
         grupo1.agregarCliente(cliente1);
         grupo1.agregarCliente(cliente2);
         grupo1.agregarCliente(cliente3);
 
         grupo2.agregarCliente(cliente4);
-        grupo2.agregarCliente(cliente5);
 
-        grupo3.agregarCliente(cliente6);
+        System.out.println("    ✓ " + cliente1.getNombreCompleto() + " → " + grupo1.getNombre());
+        System.out.println("    ✓ " + cliente2.getNombreCompleto() + " → " + grupo1.getNombre());
+        System.out.println("    ✓ " + cliente3.getNombreCompleto() + " → " + grupo1.getNombre());
+        System.out.println("    ✓ " + cliente4.getNombreCompleto() + " → " + grupo2.getNombre());
 
-        System.out.println("✓ Clientes matriculados exitosamente");
-        System.out.println();
+        // 4. MOSTRAR ESTRUCTURA COMPLETA
+        System.out.println("\n4️⃣  ESTRUCTURA COMPLETA DEL CURSO");
+        System.out.println("    ┌─────────────────────────────────────────");
+        System.out.println("    │ Curso: " + curso.getNombre());
+        System.out.println("    │ Total grupos: " + curso.getCantidadGrupos());
+        System.out.println("    │ Total estudiantes: " + curso.getTotalClientes());
+        System.out.println("    │");
 
-        // ============================================================
-        // 4. MOSTRAR ESTRUCTURA COMPLETA DEL CURSO
-        // ============================================================
-        System.out.println("━━━ 4. ESTRUCTURA COMPLETA DEL CURSO ━━━");
-        System.out.println("Curso: " + curso1.getNombre());
-        System.out.println("Total de grupos: " + curso1.getCantidadGrupos());
-        System.out.println("Total de clientes: " + curso1.getTotalClientes());
-        System.out.println();
+        for (Grupo g : curso.getGrupos()) {
+            System.out.println("    │ ┌─ " + g.getNombre());
+            System.out.println("    │ │  Clientes: " + g.getCantidadClientes() +
+                    " (Activos: " + g.getClientesActivos().size() + ")");
 
-        for (Grupo grupo : curso1.getGrupos()) {
-            System.out.println("  ┌─ Grupo: " + grupo.getNombre());
-            System.out.println("  │  Estado: " + grupo.getEstado());
-            System.out.println("  │  Clientes matriculados: " + grupo.getCantidadClientes());
-            System.out.println("  │  Clientes activos: " + grupo.getClientesActivos().size());
-            System.out.println("  │");
-
-            if (grupo.getCantidadClientes() > 0) {
-                System.out.println("  │  Lista de clientes:");
-                for (Clientes cliente : grupo.getClientes()) {
-                    String status = cliente.isActivo() ? "✓ Activo" : "✗ Inactivo";
-                    System.out.println("  │    • " + cliente.getNombreCompleto() + " - " + status);
-                    System.out.println("  │      Email: " + cliente.getUsuario());
-                }
+            for (Clientes c : g.getClientes()) {
+                String estado = c.isActivo() ? "✓" : "✗";
+                System.out.println("    │ │  " + estado + " " + c.getNombreCompleto());
             }
-            System.out.println("  └─────────────────────────────────");
-            System.out.println();
+            System.out.println("    │ └─");
         }
+        System.out.println("    └─────────────────────────────────────────");
 
-        // ============================================================
-        // 5. DEMOSTRACIÓN DE FUNCIONALIDADES
-        // ============================================================
-        System.out.println("━━━ 5. PRUEBAS DE FUNCIONALIDADES ━━━");
+        // 5. PROBAR FUNCIONALIDADES
+        System.out.println("\n5️⃣  PROBANDO FUNCIONALIDADES");
 
-        // Buscar un grupo específico
-        System.out.println("→ Buscando grupo con ID 'G002'...");
-        Grupo grupoEncontrado = curso1.buscarGrupoPorId("G002");
-        if (grupoEncontrado != null) {
-            System.out.println("  ✓ Grupo encontrado: " + grupoEncontrado.getNombre());
-        }
-        System.out.println();
+        // Buscar grupo
+        Grupo grupoEncontrado = curso.buscarGrupoPorId("G001");
+        System.out.println("    ✓ Buscar grupo 'G001': " + grupoEncontrado.getNombre());
 
-        // Buscar un cliente específico
-        System.out.println("→ Buscando cliente con ID 'CL003' en Grupo Matutino...");
-        Clientes clienteEncontrado = grupo1.buscarClientePorId("CL003");
-        if (clienteEncontrado != null) {
-            System.out.println("  ✓ Cliente encontrado: " + clienteEncontrado.getNombreCompleto());
-        }
-        System.out.println();
-
-        // Activar grupo inactivo
-        System.out.println("→ Activando grupo 'Sabatino C'...");
-        grupo3.activar();
-        System.out.println("  ✓ Estado actualizado: " + grupo3.getEstado());
-        System.out.println();
+        // Buscar cliente
+        Clientes clienteEncontrado = grupo1.buscarClientePorId("CL002");
+        System.out.println("    ✓ Buscar cliente 'CL002': " + clienteEncontrado.getNombreCompleto());
 
         // Activar cliente inactivo
-        System.out.println("→ Activando cliente 'Luis Miguel Ramírez'...");
-        cliente5.activar();
-        System.out.println("  ✓ Estado actualizado: " + (cliente5.isActivo() ? "Activo" : "Inactivo"));
-        System.out.println();
+        cliente3.activar();
+        System.out.println("    ✓ Cliente '" + cliente3.getNombre() + "' activado");
+        System.out.println("    → Clientes activos en Grupo 1: " + grupo1.getClientesActivos().size());
 
-        // Estadísticas finales
-        System.out.println("━━━ 6. ESTADÍSTICAS FINALES ━━━");
-        System.out.println("Total de grupos activos: " + curso1.getGruposActivos().size());
-        System.out.println("Total de estudiantes en el curso: " + curso1.getTotalClientes());
+        // Desactivar grupo
+        grupo2.desactivar();
+        System.out.println("    ✓ Grupo '" + grupo2.getNombre() + "' desactivado");
+        System.out.println("    → Grupos activos en curso: " + curso.getGruposActivos().size());
+
+        // 6. ESTADÍSTICAS FINALES
+        System.out.println("\n6️⃣  ESTADÍSTICAS");
+        System.out.println("    • Cursos en sistema: 1");
+        System.out.println("    • Grupos totales: " + curso.getCantidadGrupos());
+        System.out.println("    • Grupos activos: " + curso.getGruposActivos().size());
+        System.out.println("    • Total estudiantes: " + curso.getTotalClientes());
 
         int totalActivos = 0;
-        for (Grupo g : curso1.getGrupos()) {
+        for (Grupo g : curso.getGrupos()) {
             totalActivos += g.getClientesActivos().size();
         }
-        System.out.println("Total de estudiantes activos: " + totalActivos);
+        System.out.println("    • Estudiantes activos: " + totalActivos);
+    }
 
-        System.out.println();
-        System.out.println("╔═══════════════════════════════════════════════════════╗");
-        System.out.println("║              PROGRAMA FINALIZADO ✓                    ║");
-        System.out.println("╚═══════════════════════════════════════════════════════╝");
+    /**
+     * Muestra la arquitectura preparada
+     */
+    private static void mostrarArquitectura() {
+        System.out.println("\n📦 Estructura de paquetes creada:");
+        System.out.println("   ├── 📁 models/           ✓ (3 clases implementadas)");
+        System.out.println("   │   ├── Curso");
+        System.out.println("   │   ├── Grupo");
+        System.out.println("   │   └── Clientes");
+        System.out.println("   │");
+        System.out.println("   ├── 📁 exceptions/       ✓ (3 clases implementadas)");
+        System.out.println("   │   ├── EntityNotFoundException");
+        System.out.println("   │   ├── DuplicateEntityException");
+        System.out.println("   │   └── InvalidDataException");
+        System.out.println("   │");
+        System.out.println("   ├── 📁 util/             ✓ (2 clases con esqueleto)");
+        System.out.println("   │   ├── Validador");
+        System.out.println("   │   └── Mensajes");
+        System.out.println("   │");
+        System.out.println("   ├── 📁 dao/              ⏳ (Pendiente implementar)");
+        System.out.println("   │   ├── CursoDAO (interface)");
+        System.out.println("   │   ├── GrupoDAO (interface)");
+        System.out.println("   │   ├── ClientesDAO (interface)");
+        System.out.println("   │   └── 📁 impl/");
+        System.out.println("   │       ├── CursoDAOImpl");
+        System.out.println("   │       ├── GrupoDAOImpl");
+        System.out.println("   │       └── ClientesDAOImpl");
+        System.out.println("   │");
+        System.out.println("   ├── 📁 service/          ⏳ (Pendiente implementar)");
+        System.out.println("   │   ├── CursoService (interface)");
+        System.out.println("   │   ├── GrupoService (interface)");
+        System.out.println("   │   ├── ClientesService (interface)");
+        System.out.println("   │   └── 📁 impl/");
+        System.out.println("   │       ├── CursoServiceImpl");
+        System.out.println("   │       ├── GrupoServiceImpl");
+        System.out.println("   │       └── ClientesServiceImpl");
+        System.out.println("   │");
+        System.out.println("   ├── 📁 controller/       ⏳ (Pendiente implementar)");
+        System.out.println("   │   ├── CursoController");
+        System.out.println("   │   ├── GrupoController");
+        System.out.println("   │   └── ClientesController");
+        System.out.println("   │");
+        System.out.println("   └── 📁 view/             ⏳ (Pendiente implementar)");
+        System.out.println("       ├── MenuPrincipal");
+        System.out.println("       ├── MenuCursos");
+        System.out.println("       ├── MenuGrupos");
+        System.out.println("       └── MenuClientes");
+
+        System.out.println("\n✅ MODELOS Y RELACIONES: Totalmente funcionales");
+        System.out.println("⏳ ARQUITECTURA EN CAPAS: Lista para implementar");
+        System.out.println("📋 PRÓXIMO PASO: Implementar DAOs, Services, Controllers y Views");
     }
 }
