@@ -1,5 +1,9 @@
 package org.example;
 
+import org.example.models.Clientes;
+import org.example.models.Curso;
+import org.example.models.Grupo;
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("╔═══════════════════════════════════════════════════════╗");
